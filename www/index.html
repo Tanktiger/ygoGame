@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
@@ -31,7 +13,8 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.3.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.2.js"></script>
-        <script type="text/javascript" src="js/app.js">
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript">
             app.initialize();
         </script>
         <div class="app">
@@ -41,14 +24,17 @@
                     <h1>YuGiOh DB/Game</h1>
                 </header> <!-- End Home Header -->
                 <div data-role="content" class="content">
-                    <input type="text"></input>
-                    <button>Suchen</button>
+                    <form id="mainSearch" action="server/ask.php" method="get">
+                        <input name="cardSearch" type="text"></input>
+                        <button class="submit" type="button" >Suchen</button>
+                    </form>
                 </div> <!-- End Home Content -->
                 <footer data-role="footer" data-position="fixed" data-id="mainNav">
                     <nav data-role="navbar">
                      <ul>
                         <li><a href="#home" data-icon="home">Home</a></li>
-                        <li><a href="#Cardoverview" data-icon="grid">Karten</a></li>
+                        <li><a href="#CardOverview" data-icon="grid">Karten</a></li>
+                        <li><a href="#Game" data-icon="info">Game</a></li>
                         <li><a href="#Info" data-icon="info">Info</a></li>
                      </ul>
                     </nav>
@@ -56,7 +42,7 @@
             </div>
             
             <!-- Kartenübersicht -->
-            <div data-role="page" id="Cardoverview">
+            <div data-role="page" id="CardOverview">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
                     <a href="#home" data-icon="grid" data-iconpos="notext">Home</a>
@@ -78,7 +64,7 @@
             <div data-role="page" id="AllCards">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="allCardsList" data-role="listview"  data-filter="true">
@@ -89,7 +75,7 @@
             <div data-role="page" id="OnlyMonster">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlyMonsterList" data-role="listview"  data-filter="true">
@@ -100,7 +86,7 @@
             <div data-role="page" id="OnlySpell">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlySpellList" data-role="listview"  data-filter="true">
@@ -111,7 +97,7 @@
             <div data-role="page" id="OnlyTrap">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlyTrapList" data-role="listview"  data-filter="true">
@@ -122,7 +108,7 @@
             <div data-role="page" id="OnlyFusion">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlyFusionList" data-role="listview"  data-filter="true">
@@ -133,7 +119,7 @@
             <div data-role="page" id="OnlyRitual">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlyRitualList" data-role="listview"  data-filter="true">
@@ -144,7 +130,7 @@
             <div data-role="page" id="OnlySynchro">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlySynchroList" data-role="listview"  data-filter="true">
@@ -155,11 +141,37 @@
             <div data-role="page" id="OnlyXYZ">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#Cardoverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="OnlyXYZList" data-role="listview"  data-filter="true">
                     </ul>
+                </div>
+            </div>
+            
+            <div data-role="page" id="SingleCard">
+                <header data-role="header">
+                    <h1>Kartenübersicht</h1>
+                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                </header> <!-- End Cards Header -->
+                <div data-role="content" class="content">
+                    <ul id="SingleCardList" data-role="listview"  data-filter="true">
+                        <li>
+                            <label for="cardName">Name:</label>
+                            <span class="cardName"></span>
+                        </li>
+                        <li>
+                            <label for="cardCode">Code:</label>
+                            <span class="cardCode"></span>
+                        </li>
+                        <li>
+                            <label for="cardEffect">Effekt:</label>
+                            <span class="cardEffect"></span>
+                        </li>
+                    </ul>
+                    <div>
+                        <img src="#" class="cardPicture">
+                    </div>
                 </div>
             </div>
         </div>
