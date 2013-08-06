@@ -35,7 +35,7 @@ $urlArray = array(
 $db = new mysqli('127.0.0.1', 'root', '1337', 'ygo');
 $db->set_charset('utf8');
 
-echo 'Starte mit dem holen der Links für die Karten!' . PHP_EOL;
+echo 'Starte mit dem holen der Links fï¿½r die Karten!' . PHP_EOL;
 $cardlinks = array();
 foreach ($urlArray as $url) {
     echo '.';
@@ -61,7 +61,7 @@ foreach ($cardlinks as $name => $link) {
     // mit xpath navigieren
     //muss anhand des th herausgesucht werden!
     $pcitureLink = $xpathDom->evaluate("string(//div[@id='mw-content-text']/table[1]/tr[2]/td[1]/a/img/@src)");
-    $effect = $xpathDom->evaluate("string(//div[@id='mw-content-text']/table[1]/tr[6]/td[1])"); 
+    $effect = $xpathDom->evaluate("string(//div[@id='mw-content-text']/table[1]/tr[6]/td[1])");
     $cardCode = $xpathDom->evaluate("string(//div[@id='mw-content-text']/table[1]/tr[4]/td[1])");
 	$cardCode = str_replace(' ', '', $cardCode);
 // 	echo $name;
@@ -72,8 +72,8 @@ foreach ($cardlinks as $name => $link) {
 echo 'finish';
 
 function name_replace ($name) {
-	//ö ü ä müssen nicht entfernt werden
-	$name = str_replace(array('"', ' ', '!', '?', '/', 'ö', 'ä', 'ü'), array('', '_', '', '', '_', 'oe', 'ae', 'ue'), $name);
+	//ï¿½ ï¿½ ï¿½ mï¿½ssen nicht entfernt werden
+	$name = str_replace(array('"', ' ', '!', '?', '/', 'Ã¶', 'Ã¤', 'Ã¼'), array('', '_', '', '', '_', 'oe', 'ae', 'ue'), $name);
 	return $name;
 }
 

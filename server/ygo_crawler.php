@@ -57,7 +57,7 @@ function getPicLinks ($englishCardListUrl, $db) {
 }
 
 function getCards ($db) {
-    $query = 'SELECT url FROM cards_wikia';
+    $query = 'SELECT id, url FROM cards_wikia';
     $result = $db->query($query);
     echo 'Begin with getting the Pictures' . PHP_EOL;
     while ($link = $result->fetch_assoc()) {
@@ -76,7 +76,7 @@ function getCards ($db) {
                     $cardValues[$values['category']] = $values['value'];
                 }
             }
-            saveCard($cardValues, $link['url'], $db);
+            saveCard($cardValues, $link['id'], $db);
     }
     echo 'finish';
 }
@@ -146,20 +146,20 @@ function getCategoryValue($category, $tr) {
 	return $values;
 }
 
-function saveCard ($values, $link, $db) {
+function saveCard ($values, $id, $db) {
 	$atk = $def = null;
 	if (isset($values['ATK/DEF'])) {
 		$vals = preg_split('/\//', $values['ATK/DEF']);
 		$atk = $vals[0];
 		$def = $vals[1];
-	} 
+	}
 	// " " bei fusions material - entfernen oder wie?
 	$query = 'UPDATE cards_wikia
-			 SET ' . 
+			 SET ' .
 			 (isset($values['pic'])? "pic_url='" . $values['pic'] . "'," : 'pic_url=null,').
-			 (isset($values['English'])? 'name_en="' . $values['English'] . '",' : 'name_en=null,').
-			 (isset($values['German'])? 'name_de="' . $values['German'] . '",' : 'name_de=null,').
-			 (isset($values['Alternate'])? 'name_en_alternate="' . $values['Alternate'] . '",' : 'name_en_alternate=null,').
+			 (isset($values['English'])? "name_en='" . $values['English'] . "'," : 'name_en=null,').
+			 (isset($values['German'])? "name_de='" . $values['German'] . "'," : 'name_de=null,').
+			 (isset($values['Alternate'])? "name_en_alternate='" . $values['Alternate'] . "'," : 'name_en_alternate=null,').
 			 (isset($values['Attribute'])? 'attribute="' . $values['Attribute'] . '",' : 'attribute=null,').
 			 (isset($values['Types'])? 'type="' . $values['Types'] . '",' : 'type=null,').
 			 (isset($values['Level'])? 'level=' . $values['Level'] . ',' : 'level=null,').
@@ -167,12 +167,16 @@ function saveCard ($values, $link, $db) {
 			 (isset($def)? 'def=' . $def . ',' : 'def=null,').
 			 (isset($values['Card Number'])? 'code=' . $values['Card Number'] . ',' : 'code=null,').
 			 (isset($values['Fusion Material'])? 'fusion_material="' . $values['Fusion Material'] . '",' : 'fusion_material=null,').
-			 (isset($values['Materials'])? 'material="' . $values['Materials'] . '",' : 'material=null,').
-			 (isset($values['Property'])? 'propertys="' . $values['Property'] . '",' : 'propertys=null,')
-			 . ' WHERE url = "' . $link . '"';
-	var_dump($query);
-	exit();
+			 (isset($values['Materials'])? "material='" . $values['Materials'] . "'," : 'material=null,').
+			 (isset($values['Property'])? "propertys='" . $values['Property'] . "'," : 'propertys=null')
+			 . ' WHERE id = ' . $id . '';
 	$result = $db->query($query);
+	if ($result) {
+	    echo '...saved...' . PHP_EOL;
+	    file_put_contents('pics_wikia/' . name_replace($values['English']) . '.jpg', file_get_contents($values['pic']));
+	} else {
+	    echo '...failed...' . PHP_EOL;
+	}
 }
 function setCurl ($url) {
     $curlUserAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1 FirePHP/0.7.0';
@@ -181,6 +185,16 @@ function setCurl ($url) {
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+
+//     curl_setopt($curl, CURLOPT_PROXYAUTH, CURLAUTH_NTLM);
+//http://www.proxy-listen.de/Proxy/Proxyliste.html
+    curl_setopt($curl, CURLOPT_PROXY, '124.119.50.254:80');
+//     curl_setopt($curl, CURLOPT_PROXYPORT, 80);
+//     curl_setopt($curl, CURLOPT_PROXYUSERPWD, 'DOMÄNE\benutzer:password');
+
+    curl_setopt($curl, CURLOPT_TIMEOUT, 20);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 20);
+
     $curlResult = curl_exec($curl);
 //     file_put_contents('wiki'.'.html', $curlResult);
     curl_close($curl);
@@ -196,4 +210,9 @@ function getCategoryLinks($dom) {
         }
     }
     return $linkArray;
+}
+function name_replace ($name) {
+    //� � � m�ssen nicht entfernt werden
+    $name = str_replace(array('"', ' ', '!', '?', '/', 'ö', 'ä', 'ü'), array('', '_', '', '', '_', 'oe', 'ae', 'ue'), $name);
+    return $name;
 }
