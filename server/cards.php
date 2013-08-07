@@ -9,6 +9,17 @@ class Cards
         return $result->fetch_assoc();
     }
 
+    function getAllCards($limitOld, $limitNew) {
+        $db = mysqli_connect('127.0.0.1', 'root', '', 'ygo');
+        $sql = 'SELECT * FROM cards LIMIT' . $limitOld . ', ' . $limitNew;
+        $result = $db->query($sql);
+        $cards = array();
+        while ($card = $result->fetch_assoc()) {
+            $cards[$card['id']] = $card;
+        }
+        return $cards;
+    }
+
     private function rip_tags($string) {
 
         // ----- remove HTML TAGs -----

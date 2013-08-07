@@ -21,7 +21,7 @@
             <!-- Startseite -->
             <div data-role="page" id="home">
                 <header data-role="header">
-                    <h1>YuGiOh DB/Game</h1>
+                    <h1>YuGiOh mDB</h1>
                 </header> <!-- End Home Header -->
                 <div data-role="content" class="content">
                     <form id="mainSearch" action="server/ask.php" method="get">
@@ -34,7 +34,7 @@
                      <ul>
                         <li><a href="#home" data-icon="home">Home</a></li>
                         <li><a href="#CardOverview" data-icon="grid">Karten</a></li>
-                        <li><a href="#Game" data-icon="info">Game</a></li>
+                        <!-- <li><a href="#Game" data-icon="info">Game</a></li> -->
                         <li><a href="#Info" data-icon="info">Info</a></li>
                      </ul>
                     </nav>
@@ -172,6 +172,23 @@
                     <div>
                         <img src="#" class="cardPicture">
                     </div>
+                </div>
+            </div>
+            
+            <div data-role="page" id="Info">
+                <header data-role="header">
+                    <h1>Info</h1>
+                    <a href="#home" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                </header> <!-- End Cards Header -->
+                <div data-role="content" class="content">
+                    <ul data-role="listview">
+                        <li>
+                        </li>
+                        <li>
+                        </li>
+                        <li>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
