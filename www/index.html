@@ -6,7 +6,7 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.css" />
-        <title>ygoGame</title>
+        <title>YuGiOh mDB</title>
     </head>
     <body>
         <script type="text/javascript" src="phonegap.js"></script>
@@ -26,14 +26,14 @@
                 <div data-role="content" class="content">
                     <form id="mainSearch" action="server/ask.php" method="get">
                         <input name="cardSearch" type="text"></input>
-                        <button class="submit" type="button" >Suchen</button>
+                        <button class="submit" type="button" >Search</button>
                     </form>
                 </div> <!-- End Home Content -->
                 <footer data-role="footer" data-position="fixed" data-id="mainNav">
                     <nav data-role="navbar">
                      <ul>
                         <li><a href="#home" data-icon="home">Home</a></li>
-                        <li><a href="#CardOverview" data-icon="grid">Karten</a></li>
+                        <li><a href="#CardOverview" data-icon="grid">Cards</a></li>
                         <!-- <li><a href="#Game" data-icon="info">Game</a></li> -->
                         <li><a href="#Info" data-icon="info">Info</a></li>
                      </ul>
@@ -49,14 +49,16 @@
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">
-                        <li><a href="#AllCards" data-icon="grid">Alle Karten</a></li>
-                        <li><a href="#OnlyMonster" data-icon="grid">Monster</a></li>
-                        <li><a href="#OnlySpell" data-icon="grid">Zauber</a></li>
-                        <li><a href="#OnlyTrap" data-icon="grid">Fallen</a></li>
+                        <li><a id="allCardsLink" href="#AllCards" data-icon="grid">All Cards</a></li>
+                        <li><a id="onlyMonsterLink" href="#OnlyMonster" data-icon="grid">Monster</a></li>
+                        <li><a id="onlySpellLink" href="#OnlySpell" data-icon="grid">Spell</a></li>
+                        <li><a id="onlyTrapLink" href="#OnlyTrap" data-icon="grid">Trap</a></li>
+                        <!-- 
                         <li><a href="#OnlyFusion" data-icon="grid">Fusion</a></li>
                         <li><a href="#OnlyRitual" data-icon="grid">Ritual</a></li>
                         <li><a href="#OnlySynchro" data-icon="grid">Synchro</a></li>
                         <li><a href="#OnlyXYZ" data-icon="grid">XYZ</a></li>
+                         -->
                     </ul>
                 </div>
             </div>

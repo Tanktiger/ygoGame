@@ -16,14 +16,28 @@ $(document).ready(function(){
 	    	dataType: 'jsonp',
 	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
-				//go to div SingleCard
+				//go to div SingleCard oder MultiCard - je nachdem wie viele im Ergebnis kommen
 				//hänge alle übergebenen Werte in das Skelett
 				$.mobile.changePage($("#SingleCard"));
-				$('.cardName').text(data.name);
+				$('.cardName').text(data.name_de);
 				$('.cardPicture').attr('src', data.url);
 				$('.cardPicture').css('max-width', viewport.width);
 				$('.cardPicture').css('max-height', viewport.height);
-				$('.cardCode').text(data.language);
+//				$('.cardCode').text(data.code);
+			}
+	    });
+	});
+	$(document).on('click','#allCardsLink', function(e) {
+	    var $this = $(this);
+	    $.ajax({
+	    	url: 'ask.php/?ask=all',
+	    	dataType: 'jsonp',
+	    	jsonp: 'jsoncallback',
+			success: function (data, status) {
+				//data.each()
+				var list = $('#allCardsList');
+				var li = '<li><span>' + data.name_de + '</span></li>';
+				list.append(li);
 				//bei mehreren Ergebnissen zeige overlay mit ergebnissen
 			}
 	    });

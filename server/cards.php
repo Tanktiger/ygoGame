@@ -4,14 +4,14 @@ class Cards
     public function getSingleCardByName($name) {
         $db = mysqli_connect('127.0.0.1', 'root', '', 'ygo');
 
-        $sql = 'SELECT name, url, language FROM cards WHERE name LIKE "%' . $this->rip_tags($name) . '%"';
+        $sql = 'SELECT name_de, url FROM cards WHERE name LIKE "%' . $this->rip_tags($name) . '%"';
         $result = $db->query($sql);
         return $result->fetch_assoc();
     }
 
     function getAllCards($limitOld, $limitNew) {
         $db = mysqli_connect('127.0.0.1', 'root', '', 'ygo');
-        $sql = 'SELECT * FROM cards LIMIT' . $limitOld . ', ' . $limitNew;
+        $sql = 'SELECT id, name_de FROM cards LIMIT' . $limitOld . ', ' . $limitNew;
         $result = $db->query($sql);
         $cards = array();
         while ($card = $result->fetch_assoc()) {
@@ -20,6 +20,16 @@ class Cards
         return $cards;
     }
 
+    function getCardsByType ($type, $limitOld, $limitNew) {
+        $db = mysqli_connect('127.0.0.1', 'root', '', 'ygo');
+        $sql = 'SELECT id, name_de FROM cards WHERE type LIKE "%' . $type . '%"LIMIT' . $limitOld . ', ' . $limitNew;
+        $result = $db->query($sql);
+        $cards = array();
+        while ($card = $result->fetch_assoc()) {
+            $cards[$card['id']] = $card;
+        }
+        return $cards;
+    }
     private function rip_tags($string) {
 
         // ----- remove HTML TAGs -----
