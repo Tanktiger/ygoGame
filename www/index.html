@@ -19,12 +19,12 @@
         </script>
         <div class="app">
             <!-- Startseite -->
-            <div data-role="page" id="home">
+            <div data-role="page" id="home" data-dom-cache="true">
                 <header data-role="header">
                     <h1>YuGiOh mDB</h1>
                 </header> <!-- End Home Header -->
                 <div data-role="content" class="content">
-                    <form id="mainSearch" action="server/ask.php" method="get">
+                    <form id="mainSearch" action="/server/ask.php" method="get">
                         <input name="cardSearch" type="text"></input>
                         <button class="submit" type="button" >Search</button>
                     </form>
@@ -42,7 +42,7 @@
             </div>
             
             <!-- Kartenübersicht -->
-            <div data-role="page" id="CardOverview">
+            <div data-role="page" id="CardOverview" data-dom-cache="true">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
                     <a href="#home" data-icon="grid" data-iconpos="notext">Home</a>
