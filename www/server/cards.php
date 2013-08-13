@@ -10,11 +10,12 @@ class Cards
 
     public function mainSearch ($string) {
         $string = $this->rip_tags($string);
-        $sql = 'SELECT * FROM cards WHERE name_de LIKE "%' . $string .
-                                    '%" OR name_en LIKE "%' . $string .
-                                    '%" OR name_en_alternate LIKE "%' . $string .
-                                    '%" OR code = ' . $string .
-                                    ' LIMIT 100';
+        $codeString = (is_numeric($string))? " OR code = " . $string : '';
+        $sql = "SELECT * FROM cards_wikia WHERE name_de LIKE '%" . $string .
+                                    "%' OR name_en LIKE '%" . $string .
+                                    "%' OR name_en_alternate LIKE '%" . $string . "%'" .
+                                     $codeString .
+                                    " LIMIT 100";
         $result = $this->db->query($sql);
         return $this->createCardArray($result);
     }

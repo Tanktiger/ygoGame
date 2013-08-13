@@ -45,14 +45,14 @@
             <div data-role="page" id="CardOverview" data-dom-cache="true">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#home" data-icon="grid" data-iconpos="notext">Home</a>
+                    <a href="#home" data-icon="arrow-l" data-iconpos="notext">Home</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">
-                        <li><a id="allCardsLink" href="#AllCards" data-icon="grid">All Cards</a></li>
-                        <li><a id="onlyMonsterLink" href="#OnlyMonster" data-icon="grid">Monster</a></li>
-                        <li><a id="onlySpellLink" href="#OnlySpell" data-icon="grid">Spell</a></li>
-                        <li><a id="onlyTrapLink" href="#OnlyTrap" data-icon="grid">Trap</a></li>
+                        <li><a id="allCardsLink" href="#MultiCards" data-icon="grid">All Cards</a></li>
+                        <li><a id="onlyMonsterLink" href="#MultiCards" data-icon="grid">Monster</a></li>
+                        <li><a id="onlySpellLink" href="#MultiCards" data-icon="grid">Spell</a></li>
+                        <li><a id="onlyTrapLink" href="#MultiCards" data-icon="grid">Trap</a></li>
                         <!-- 
                         <li><a href="#OnlyFusion" data-icon="grid">Fusion</a></li>
                         <li><a href="#OnlyRitual" data-icon="grid">Ritual</a></li>
@@ -62,91 +62,14 @@
                     </ul>
                 </div>
             </div>
-            <!-- Alle Karten -->
-            <div data-role="page" id="AllCards">
+
+            <div data-role="page" id="MultiCards">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
-                    <ul id="allCardsList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur Monster -->
-            <div data-role="page" id="OnlyMonster">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlyMonsterList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur Zauber -->
-            <div data-role="page" id="OnlySpell">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlySpellList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur Fallen -->
-            <div data-role="page" id="OnlyTrap">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlyTrapList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur Fusion -->
-            <div data-role="page" id="OnlyFusion">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlyFusionList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur Ritual -->
-            <div data-role="page" id="OnlyRitual">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlyRitualList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur Synchro -->
-            <div data-role="page" id="OnlySynchro">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlySynchroList" data-role="listview"  data-filter="true">
-                    </ul>
-                </div>
-            </div>
-            <!-- Nur XYZ -->
-            <div data-role="page" id="OnlyXYZ">
-                <header data-role="header">
-                    <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
-                </header> <!-- End Cards Header -->
-                <div data-role="content" class="content">
-                    <ul id="OnlyXYZList" data-role="listview"  data-filter="true">
+                    <ul id="MultiCardList" data-role="listview"  data-filter="true">
                     </ul>
                 </div>
             </div>
@@ -154,37 +77,41 @@
             <div data-role="page" id="SingleCard">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="SingleCardList" data-role="listview"  data-filter="true">
                         <li>
-                            <label for="cardNameEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">Name:</label>
-                            <span class="cardNameEnglish"></span>
+                            <label for="cardNameEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Name:</label>
+                            <br /><span class="cardNameEnglish"></span>
                         </li>
                         <li>
-                            <label for="cardNameEnglishAlt"><img src="img/en_alternateflag.png" width="20px" height="10px" class="englishAltFlagIcon">Name:</label>
-                            <span class="cardNameEnglishAlt"></span>
+                            <label for="cardNameEnglishAlt"><img src="img/en_alternateflag.png" width="20px" height="10px" class="englishAltFlagIcon">&nbsp;Alternate Name:</label>
+                            <br /><span class="cardNameEnglishAlt"></span>
                         </li>
                         <li>
-                            <label for="cardNameGerman"><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">Alternate Name:</label>
-                            <span class="cardNameGerman"></span>
+                            <label for="cardNameGerman"><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">&nbsp;Name:</label>
+                            <br /><span class="cardNameGerman"></span>
                         </li>
                         <li>
                             <label for="cardCode">Code:</label>
-                            <span class="cardCode"></span>
+                            <br /><span class="cardCode"></span>
                         </li>
                         <li>
-                            <label for="cardEffectEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">Effect:</label>
-                            <span class="cardEffectEnglish"></span>
+                            <label for="cardEffectEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Effect:</label>
+                            <br /><span class="cardEffectEnglish"></span>
                         </li>
                         <li>
-                            <label for="cardEffectGerman"><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">Effekt:</label>
-                            <span class="cardEffectGerman"></span>
+                            <label for="cardEffectGerman"><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">&nbsp;Effekt:</label>
+                            <br /><span class="cardEffectGerman"></span>
                         </li>
                     </ul>
                     <div>
                         <img src="#" class="cardPicture">
+                    </div>
+                    <div class="ebay">
+                        <ul class="ebayItemList" data-role="listview">
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -192,7 +119,7 @@
             <div data-role="page" id="Info">
                 <header data-role="header">
                     <h1>Info</h1>
-                    <a href="#home" data-icon="grid" data-iconpos="notext">Übersicht</a>
+                    <a href="#home" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">
