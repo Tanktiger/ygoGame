@@ -80,7 +80,7 @@
                     <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
-                    <ul id="SingleCardList" data-role="listview"  data-filter="true">
+                    <ul id="SingleCardList" data-role="listview"  data-filter="false">
                         <li>
                             <label for="cardNameEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Name:</label>
                             <br /><span class="cardNameEnglish"></span>
@@ -98,18 +98,23 @@
                             <br /><span class="cardCode"></span>
                         </li>
                         <li>
-                            <label for="cardEffectEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Effect:</label>
-                            <br /><span class="cardEffectEnglish"></span>
+                            <div data-role="collapsible">
+                               <h3><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Effect:</h3>
+                               <p class="cardEffectEnglish"></p>
+                            </div>
                         </li>
                         <li>
-                            <label for="cardEffectGerman"><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">&nbsp;Effekt:</label>
-                            <br /><span class="cardEffectGerman"></span>
+                            <div data-role="collapsible">
+                               <h3><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">&nbsp;Effekt:</h3>
+                               <p class="cardEffectGerman"></p>
+                            </div>
                         </li>
                     </ul>
                     <div>
                         <img src="#" class="cardPicture">
                     </div>
-                    <div class="ebay">
+                    <div class="ebay" data-role="collapsible">
+                        <h3>Ebay-Infos</h3>
                         <ul class="ebayItemList" data-role="listview">
                         </ul>
                     </div>
