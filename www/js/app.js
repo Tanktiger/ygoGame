@@ -23,6 +23,7 @@ $(document).bind('pagecreate', function(){
 	function setMultiCard (data) {
 		$.each(data, function (key, item) {
 			var list = $('#MultiCardList');
+			//data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
 			var li = '<li><span>' + item.name_de + '</span></li>';
 			list.append(li);
 		});
