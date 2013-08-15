@@ -25,6 +25,7 @@ $(document).bind('pagecreate', function(){
 	
 	function setMultiCard (data) {
 		var list = $('#MultiCardList');
+		list.empty();
 		$.each(data, function (key, item) {
 			//data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
 			var li = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="a" data-icon="arrow-r" data-iconpos="right"><a href="#SingleCard" class="multiCard" data-cardId="'+item.id+'">' + item.name_de + '</a></li>';
@@ -49,10 +50,20 @@ $(document).bind('pagecreate', function(){
 				//go to div SingleCard oder MultiCard - je nachdem wie viele im Ergebnis kommen
 				//hänge alle übergebenen Werte in das Skelett
 				if (Object.keys(data).length == 1) {
-					$.mobile.changePage($("#SingleCard"));
+					$.mobile.changePage($("#SingleCard"),{
+						  allowSamePageTransition : true,
+						  transition : 'none',
+						  showLoadMsg : true,
+						  reloadPage : true
+						 });
 					setSingleCard(data);
 				} else {
-					$.mobile.changePage($("#MultiCards"));
+					$.mobile.changePage($("#MultiCards"),{
+						  allowSamePageTransition : true,
+						  transition : 'none',
+						  showLoadMsg : true,
+						  reloadPage : true
+						 });
 					setMultiCard(data);
 				}
 				$.mobile.loading( 'hide');
@@ -69,9 +80,9 @@ $(document).bind('pagecreate', function(){
 	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
 				setMultiCard(data);
-				$.mobile.loading( 'hide');
 			}
 	    });
+	    $.mobile.loading( 'hide');
 	});
 	$(document).on('click','#MultiCardList .multiCard', function(e) {
 		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
@@ -81,7 +92,6 @@ $(document).bind('pagecreate', function(){
 	    	dataType: 'jsonp',
 	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
-//				$.mobile.changePage($("#SingleCard"));
 				setSingleCard(data, true);
 			}
 	    });
@@ -123,7 +133,7 @@ function _cb_findItemsByKeywords(root) {
 	}
 	$.each(items, function(key, item) {
 		console.log(item);
-		var li = '<li><a href="'+item.viewItemURL+'">' + item.title + '</a>&nbsp;<span>'+item.sellingStatus[0].currentPrice[0].__value__+'&nbsp;'+currency+'</span></li>';
+		var li = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="a" data-icon="arrow-r" data-iconpos="right"><a href="'+item.viewItemURL+'">' + item.title + '<span>&nbsp;'+item.sellingStatus[0].currentPrice[0].__value__+'&nbsp;'+currency+'</span></a></li>';
 		offerList.append(li);
 	});
 }  // End _cb_findItemsByKeywords() function
