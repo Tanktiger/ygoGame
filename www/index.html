@@ -45,7 +45,7 @@
             <div data-role="page" id="CardOverview" data-dom-cache="true">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#home" data-icon="arrow-l" data-iconpos="notext" class="backLink">Home</a>
+                    <a href="#home" data-icon="arrow-l" data-rel="back" data-iconpos="notext" data-ajax="false" class="backLink">Home</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">
@@ -66,7 +66,7 @@
             <div data-role="page" id="MultiCards">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext" class="backLink">Übersicht</a>
+                    <a href="#CardOverview" data-icon="arrow-l" data-rel="back" data-ajax="false" data-iconpos="notext" class="backLink">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ol id="MultiCardList" data-role="listview"  data-filter="true">
@@ -77,7 +77,7 @@
             <div data-role="page" id="SingleCard">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#home" data-icon="arrow-l" data-iconpos="notext" class="backLink">Übersicht</a>
+                    <a href="#home" data-icon="arrow-l" data-rel="back" data-ajax="false" data-iconpos="notext" class="backLink">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="SingleCardList" data-role="listview"  data-filter="false">
@@ -128,7 +128,7 @@
             <div data-role="page" id="Info">
                 <header data-role="header">
                     <h1>Info</h1>
-                    <a href="#home" data-icon="arrow-l" data-iconpos="notext" class="backLink">Übersicht</a>
+                    <a href="#home" data-icon="arrow-l" data-rel="back" data-iconpos="notext" class="backLink">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">
@@ -151,6 +151,12 @@
                     </ul>
                 </div>
             </div>
+            
+            <div data-role="popup" id="noResult" data-overlay-theme="a" >
+                <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+                <p>No Cards Found!</p>
+            </div>
+            
         </div>
     </body>
 </html>

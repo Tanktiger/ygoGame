@@ -6,7 +6,9 @@ var viewport = {
 var userLang = navigator.language || navigator.userLanguage; 
 $(document).bind('pagecreate', function(){
 	function setSingleCard (data, isMulti = false) {
+		$('#SingleCard .backLink').attr('data-ajax', 'false');
 		if (isMulti) {
+			$('#SingleCard .backLink').attr('data-ajax', 'true');
 			$('#SingleCard .backLink').attr('href', '#MultiCards');
 		}
 		$.each(data, function (key, item) {
@@ -44,6 +46,7 @@ $(document).bind('pagecreate', function(){
 	    $.ajax({
 	    	url: $this.attr('action') + '?ask=main',
 	    	data: $this.serialize(),
+	    	cache: false,
 	    	dataType: 'jsonp',
 	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
@@ -57,7 +60,7 @@ $(document).bind('pagecreate', function(){
 						  reloadPage : true
 						 });
 					setSingleCard(data);
-				} else {
+				} else if(Object.keys(data).length > 1) {
 					$.mobile.changePage($("#MultiCards"),{
 						  allowSamePageTransition : true,
 						  transition : 'none',
@@ -65,6 +68,9 @@ $(document).bind('pagecreate', function(){
 						  reloadPage : true
 						 });
 					setMultiCard(data);
+				} else {
+					$( "#noResult" ).popup();
+					$( "#noResult" ).popup( "open" );
 				}
 				$.mobile.loading( 'hide');
 			}
@@ -77,6 +83,7 @@ $(document).bind('pagecreate', function(){
 	    $.ajax({
 	    	url: '/server/ask.php/?ask=all',
 	    	dataType: 'jsonp',
+	    	cache: false,
 	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
 				setMultiCard(data);
@@ -90,6 +97,7 @@ $(document).bind('pagecreate', function(){
 	    $.ajax({
 	    	url: '/server/ask.php/?ask=singleId&id='+ $this.attr('data-cardId'),
 	    	dataType: 'jsonp',
+	    	cache: false,
 	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
 				setSingleCard(data, true);
