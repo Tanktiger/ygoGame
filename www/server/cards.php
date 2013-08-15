@@ -26,14 +26,20 @@ class Cards
                 '%" OR name_en LIKE "%' . $name .
                 '%" OR name_en_alternate LIKE "%' . $name . '%"';
         $result = $this->db->query($sql);
-        return $result->fetch_assoc();
+        return $this->createCardArray($result);
     }
 
     public function getSingleCardByCode($code) {
 
         $sql = 'SELECT * FROM cards WHERE code = ' . $code;
         $result = $this->db->query($sql);
-        return $result->fetch_assoc();
+        return $this->createCardArray($result);
+    }
+    public function getSingleCardById($id) {
+
+        $sql = 'SELECT * FROM cards WHERE id = ' . $id;
+        $result = $this->db->query($sql);
+        return $this->createCardArray($result);
     }
 
     public function getAllCards($limitOld, $limitNew) {

@@ -14,6 +14,9 @@ switch ($_GET['ask']) {
     case 'singleCode' :
         $data = $card->getSingleCardByCode($_GET['cardSearch']);
         break;
+    case 'singleId' :
+        $data = $card->getSingleCardById($_GET['id']);
+        break;
     case 'all' :
         $data = $card->getAllCards($limitOld, $limitNew);
     case 'main' :

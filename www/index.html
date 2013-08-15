@@ -45,7 +45,7 @@
             <div data-role="page" id="CardOverview" data-dom-cache="true">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#home" data-icon="arrow-l" data-iconpos="notext">Home</a>
+                    <a href="#home" data-icon="arrow-l" data-iconpos="notext" class="backLink">Home</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">
@@ -66,7 +66,7 @@
             <div data-role="page" id="MultiCards">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
+                    <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext" class="backLink">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ol id="MultiCardList" data-role="listview"  data-filter="true">
@@ -77,12 +77,12 @@
             <div data-role="page" id="SingleCard">
                 <header data-role="header">
                     <h1>Kartenübersicht</h1>
-                    <a href="#CardOverview" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
+                    <a href="#home" data-icon="arrow-l" data-iconpos="notext" class="backLink">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="SingleCardList" data-role="listview"  data-filter="false">
                         <li class="cardItem">
-                            <label for="cardNameEnglish"><img src="img/en.png" class="englishFlagIcon">&nbsp;Name:</label>
+                            <label for="cardNameEnglish"><img src="img/us.png" class="englishFlagIcon">&nbsp;Name:</label>
                             <br /><span class="cardNameEnglish"></span>
                         </li>
                         <li class="cardItem">
@@ -103,7 +103,7 @@
                         </li>
                         <li class="cardItem">
                             <div data-role="collapsible">
-                               <h3><img src="img/en.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Effect:</h3>
+                               <h3><img src="img/us.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Effect:</h3>
                                <p class="cardEffectEnglish"></p>
                             </div>
                         </li>
@@ -128,7 +128,7 @@
             <div data-role="page" id="Info">
                 <header data-role="header">
                     <h1>Info</h1>
-                    <a href="#home" data-icon="arrow-l" data-iconpos="notext">Übersicht</a>
+                    <a href="#home" data-icon="arrow-l" data-iconpos="notext" class="backLink">Übersicht</a>
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul data-role="listview">

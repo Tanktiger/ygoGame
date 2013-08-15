@@ -2,10 +2,13 @@ var viewport = {
     width  : $(window).width(),
     height : $(window).height()
 };
-var SingleCardData = null;
+//var SingleCardData = null;
 var userLang = navigator.language || navigator.userLanguage; 
 $(document).bind('pagecreate', function(){
-	function setSingleCard (data) {
+	function setSingleCard (data, isMulti = false) {
+		if (isMulti) {
+			$('#SingleCard .backLink').attr('href', '#MultiCards');
+		}
 		$.each(data, function (key, item) {
 			ebayCall(item);
 			$('#SingleCard .cardNameEnglish').text(item.name_en);
@@ -21,12 +24,13 @@ $(document).bind('pagecreate', function(){
 	}
 	
 	function setMultiCard (data) {
+		var list = $('#MultiCardList');
 		$.each(data, function (key, item) {
-			var list = $('#MultiCardList');
 			//data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-			var li = '<li><span>' + item.name_de + '</span></li>';
+			var li = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="a" data-icon="arrow-r" data-iconpos="right"><a href="#SingleCard" class="multiCard" data-cardId="'+item.id+'">' + item.name_de + '</a></li>';
 			list.append(li);
 		});
+		list.listview('refresh');
 	}
 	
 	$('#mainSearch').on('click','.submit', function(e) {
@@ -45,7 +49,6 @@ $(document).bind('pagecreate', function(){
 				//go to div SingleCard oder MultiCard - je nachdem wie viele im Ergebnis kommen
 				//hänge alle übergebenen Werte in das Skelett
 				if (Object.keys(data).length == 1) {
-					SingleCardData = data;
 					$.mobile.changePage($("#SingleCard"));
 					setSingleCard(data);
 				} else {
@@ -69,6 +72,20 @@ $(document).bind('pagecreate', function(){
 				$.mobile.loading( 'hide');
 			}
 	    });
+	});
+	$(document).on('click','#MultiCardList .multiCard', function(e) {
+		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
+	    var $this = $(this);
+	    $.ajax({
+	    	url: '/server/ask.php/?ask=singleId&id='+ $this.attr('data-cardId'),
+	    	dataType: 'jsonp',
+	    	jsonp: 'jsoncallback',
+			success: function (data, status) {
+//				$.mobile.changePage($("#SingleCard"));
+				setSingleCard(data, true);
+			}
+	    });
+	    $.mobile.loading( 'hide');
 	});
 	
 	function ebayCall (data) {
