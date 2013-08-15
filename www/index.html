@@ -4,8 +4,8 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>YuGiOh mDB</title>
     </head>
     <body>
@@ -81,29 +81,33 @@
                 </header> <!-- End Cards Header -->
                 <div data-role="content" class="content">
                     <ul id="SingleCardList" data-role="listview"  data-filter="false">
-                        <li>
+                        <li class="cardItem">
                             <label for="cardNameEnglish"><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Name:</label>
                             <br /><span class="cardNameEnglish"></span>
                         </li>
-                        <li>
+                        <li class="cardItem">
                             <label for="cardNameEnglishAlt"><img src="img/en_alternateflag.png" width="20px" height="10px" class="englishAltFlagIcon">&nbsp;Alternate Name:</label>
                             <br /><span class="cardNameEnglishAlt"></span>
                         </li>
-                        <li>
+                        <li class="cardItem">
                             <label for="cardNameGerman"><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">&nbsp;Name:</label>
                             <br /><span class="cardNameGerman"></span>
                         </li>
-                        <li>
+                        <li class="cardItem">
                             <label for="cardCode">Code:</label>
                             <br /><span class="cardCode"></span>
                         </li>
-                        <li>
+                        <li class="cardItem">
+                            <label for="cardProperties">Properties:</label>
+                            <br /><span class="cardProperties"></span>
+                        </li>
+                        <li class="cardItem">
                             <div data-role="collapsible">
                                <h3><img src="img/enflag.png" width="20px" height="10px" class="englishFlagIcon">&nbsp;Effect:</h3>
                                <p class="cardEffectEnglish"></p>
                             </div>
                         </li>
-                        <li>
+                        <li class="cardItem">
                             <div data-role="collapsible">
                                <h3><img src="img/germanflag.png" width="20px" height="10px"class="germanFlagIcon">&nbsp;Effekt:</h3>
                                <p class="cardEffectGerman"></p>
@@ -129,10 +133,20 @@
                 <div data-role="content" class="content">
                     <ul data-role="listview">
                         <li>
+                            <div class="idea" data-role="collapsible">
+                                <h3>Idea</h3>
+                                <p>Henry Meien</p>
+                                <p>Marcel Mittelsteadt</p>
+                                <p>Tom Scheduikat</p>
+                                <p>This is a private Project! </p>
+                            </div>
                         </li>
                         <li>
-                        </li>
-                        <li>
+                            <div class="copyright" data-role="collapsible">
+                                <h3>Copyright</h3>
+                                <p>Copyright for the Pictures is at Konami</p>
+                                <p>Copyright Programming goes to Tom Scheduikat</p>
+                            </div>
                         </li>
                     </ul>
                 </div>

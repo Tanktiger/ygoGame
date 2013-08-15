@@ -113,6 +113,10 @@ function getCategoryValue($category, $tr) {
 				$values['category'] = $category;
 				$values['value'] = $tr->lastChild->nodeValue;
 				break;
+			case 'Rank' :
+				$values['category'] = $category;
+				$values['value'] = $tr->lastChild->nodeValue;
+				break;
 			case 'Level' :
 				$values['category'] = $category;
 				$values['value'] = $tr->lastChild->nodeValue;
@@ -162,6 +166,7 @@ function saveCard ($values, $id, $db) {
 			 (isset($values['Alternate'])? "name_en_alternate='" . $values['Alternate'] . "'," : 'name_en_alternate=null,').
 			 (isset($values['Attribute'])? 'attribute="' . $values['Attribute'] . '",' : 'attribute=null,').
 			 (isset($values['Types'])? 'type="' . $values['Types'] . '",' : 'type=null,').
+			 (isset($values['Rank'])? 'rank="' . $values['Rank'] . '",' : 'rank=null,').
 			 (isset($values['Level'])? 'level=' . $values['Level'] . ',' : 'level=null,').
 			 (isset($atk)? 'atk=' . $atk . ',' : 'atk=null,').
 			 (isset($def)? 'def=' . $def . ',' : 'def=null,').

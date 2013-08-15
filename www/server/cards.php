@@ -11,7 +11,7 @@ class Cards
     public function mainSearch ($string) {
         $string = $this->rip_tags($string);
         $codeString = (is_numeric($string))? " OR code = " . $string : '';
-        $sql = "SELECT * FROM cards_wikia WHERE name_de LIKE '%" . $string .
+        $sql = "SELECT * FROM cards WHERE name_de LIKE '%" . $string .
                                     "%' OR name_en LIKE '%" . $string .
                                     "%' OR name_en_alternate LIKE '%" . $string . "%'" .
                                      $codeString .

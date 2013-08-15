@@ -12,8 +12,8 @@ $(document).bind('pagecreate', function(){
 			$('#SingleCard .cardNameEnglishAlt').text(item.name_en_alternate);
 			$('#SingleCard .cardNameGerman').text(item.name_de);
 			$('#SingleCard .cardCode').text(item.code);
-			$('#SingleCard .cardEffectEnglish').text(item.effect);
-			$('#SingleCard .cardEffectGerman').text(item.effect);
+			$('#SingleCard .cardEffectEnglish').text(item.effect_en);
+			$('#SingleCard .cardEffectGerman').text(item.effect_de);
 			$('#SingleCard .cardPicture').attr('src', item.pic_url);
 			$('#SingleCard .cardPicture').css('max-width', viewport.width);
 			$('#SingleCard .cardPicture').css('max-height', viewport.height);
@@ -43,8 +43,7 @@ $(document).bind('pagecreate', function(){
 			success: function (data, status) {
 				//go to div SingleCard oder MultiCard - je nachdem wie viele im Ergebnis kommen
 				//hänge alle übergebenen Werte in das Skelett
-//				console.log(data);
-				if ($(data).size() == 1) {
+				if (Object.keys(data).length == 1) {
 					SingleCardData = data;
 					$.mobile.changePage($("#SingleCard"));
 					setSingleCard(data);
