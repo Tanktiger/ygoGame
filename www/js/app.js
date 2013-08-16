@@ -6,22 +6,139 @@ var viewport = {
 var userLang = navigator.language || navigator.userLanguage; 
 $(document).bind('pagecreate', function(){
 	function setSingleCard (data, isMulti = false) {
-		$('#SingleCard .backLink').attr('data-ajax', 'false');
 		if (isMulti) {
 			$('#SingleCard .backLink').attr('data-ajax', 'true');
 			$('#SingleCard .backLink').attr('href', '#MultiCards');
+		} else {
+			$('#SingleCard .backLink').attr('data-ajax', 'false');
+			$('#SingleCard .backLink').attr('href', '#home');
+			
 		}
 		$.each(data, function (key, item) {
 			ebayCall(item);
-			$('#SingleCard .cardNameEnglish').text(item.name_en);
-			$('#SingleCard .cardNameEnglishAlt').text(item.name_en_alternate);
-			$('#SingleCard .cardNameGerman').text(item.name_de);
-			$('#SingleCard .cardCode').text(item.code);
-			$('#SingleCard .cardEffectEnglish').text(item.effect_en);
-			$('#SingleCard .cardEffectGerman').text(item.effect_de);
-			$('#SingleCard .cardPicture').attr('src', item.pic_url);
-			$('#SingleCard .cardPicture').css('max-width', viewport.width);
-			$('#SingleCard .cardPicture').css('max-height', viewport.height);
+			
+			var cardNameEnglish = $('#SingleCard .cardNameEnglish');
+			if (item.name_en){
+				cardNameEnglish.parents('.cardItem').show();
+				cardNameEnglish.text(item.name_en);
+			} else {
+				cardNameEnglish.parents('.cardItem').hide();
+			}
+			
+			var cardNameEnglishAlt = $('#SingleCard .cardNameEnglishAlt');
+			if (item.name_en_alternate){
+				cardNameEnglishAlt.text(item.name_en_alternate);
+				cardNameEnglishAlt.parents('.cardItem').show();
+			} else {
+				cardNameEnglishAlt.parents('.cardItem').hide();
+			}
+			
+			var cardNameGerman = $('#SingleCard .cardNameGerman');
+			if (item.name_de){
+				cardNameGerman.text(item.name_de);
+				cardNameGerman.parents('.cardItem').show();
+			} else {
+				cardNameGerman.parents('.cardItem').hide();
+			}
+			
+			var cardCode = $('#SingleCard .cardCode');
+			if (item.code){
+				cardCode.text(item.code);
+				cardCode.parents('.cardItem').show();
+			} else {
+				cardCode.parents('.cardItem').hide();
+			}
+			
+			var cardEffectEn = $('#SingleCard .cardEffectEnglish');
+			if (item.effect_en){
+				cardEffectEn.text(item.effect_en);
+				cardEffectEn.parents('.cardItem').show();
+			} else {
+				cardEffectEn.parents('.cardItem').hide();
+			}
+			
+			var cardEffectGer = $('#SingleCard .cardEffectGerman');
+			if (item.effect_de){
+				cardEffectGer.text(item.effect_de);
+				cardEffectGer.parents('.cardItem').show();
+			} else {
+				cardEffectGer.parents('.cardItem').hide();
+			}
+			
+			var cardPicture = $('#SingleCard .cardPicture');
+			if (item.pic_url){
+				cardPicture.attr('src', item.pic_url);
+				$('#SingleCard .cardPicture').css('max-width', viewport.width);
+				$('#SingleCard .cardPicture').css('max-height', viewport.height);
+				cardPicture.show();
+			} else {
+				cardPicture.hide();
+			}
+			
+			var cardLevel = $('#SingleCard .cardLevel');
+			if (item.level){
+				cardLevel.text(item.level);
+				cardLevel.parents('.cardItem').show();
+			} else {
+				cardLevel.parents('.cardItem').hide();
+			}
+			
+			var cardRank = $('#SingleCard .cardRank');
+			if (item.rank){
+				cardRank.text(item.rank);
+				cardRank.parents('.cardItem').show();
+			} else {
+				cardRank.parents('.cardItem').hide();
+			}
+			
+			var cardValues = $('#SingleCard .cardValues');
+			if (item.atk && item.def){
+				cardValues.text(item.atk + '/' + item.def);
+				cardValues.parents('.cardItem').show();
+			} else {
+				cardValues.parents('.cardItem').hide();
+			}
+			
+			var cardAttribute = $('#SingleCard .cardAttribute');
+			if (item.attribute){
+				cardAttribute.text(item.attribute);
+				cardAttribute.parents('.cardItem').show();
+			} else {
+				cardAttribute.parents('.cardItem').hide();
+			}
+			
+			var cardProperties = $('#SingleCard .cardProperties');
+			if (item.propertys){
+				cardProperties.text(item.propertys);
+				cardProperties.parents('.cardItem').show();
+			} else {
+				cardProperties.parents('.cardItem').hide();
+			}
+			
+			var cardType = $('#SingleCard .cardType');
+			if (item.type){
+				cardType.text(item.type);
+				cardType.parents('.cardItem').show();
+			} else {
+				cardType.parents('.cardItem').hide();
+			}
+			
+			var cardFusionMaterial = $('#SingleCard .cardFusionMaterial');
+			if (item.fusion_material){
+				cardFusionMaterial.text(item.fusion_material);
+				cardFusionMaterial.parents('.cardItem').show();
+			} else {
+				cardFusionMaterial.parents('.cardItem').hide();
+			}
+			
+			var cardMaterial = $('#SingleCard .cardMaterial');
+			if (item.material){
+				cardMaterial.text(item.material);
+				cardMaterial.parents('.cardItem').show();
+			} else {
+				cardMaterial.parents('.cardItem').hide();
+			}
+			
 		});
 	}
 	
@@ -36,7 +153,7 @@ $(document).bind('pagecreate', function(){
 		list.listview('refresh');
 	}
 	
-	$('#mainSearch').on('click','.submit', function(e) {
+	$('#mainSearch').unbind('click').on('click','.submit', function(e) {
 		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
 		//cache the form element for use in this function
 	    var $this = $(this).parents('form');
@@ -59,7 +176,7 @@ $(document).bind('pagecreate', function(){
 						  showLoadMsg : true,
 						  reloadPage : true
 						 });
-					setSingleCard(data);
+					setSingleCard(data, false);
 				} else if(Object.keys(data).length > 1) {
 					$.mobile.changePage($("#MultiCards"),{
 						  allowSamePageTransition : true,
@@ -77,7 +194,7 @@ $(document).bind('pagecreate', function(){
 	    });
 	});
 	
-	$(document).on('click','#allCardsLink', function(e) {
+	$(document).unbind('click').on('click','#allCardsLink', function(e) {
 		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
 	    var $this = $(this);
 	    $.ajax({
@@ -91,7 +208,7 @@ $(document).bind('pagecreate', function(){
 	    });
 	    $.mobile.loading( 'hide');
 	});
-	$(document).on('click','#MultiCardList .multiCard', function(e) {
+	$(document).unbind('click').on('click','#MultiCardList .multiCard', function(e) {
 		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
 	    var $this = $(this);
 	    $.ajax({
@@ -107,6 +224,7 @@ $(document).bind('pagecreate', function(){
 	});
 	
 	function ebayCall (data) {
+		console.log('ebayCall');
 		var name = data.name_en + '%20' + data.name_en_alternate;
 		var lang = 'US';
 		if (userLang == 'de-DE') {
@@ -121,15 +239,16 @@ $(document).bind('pagecreate', function(){
 	    url += "&RESPONSE-DATA-FORMAT=JSON";
 	    url += "&callback=_cb_findItemsByKeywords";
 	    url += "&REST-PAYLOAD";
-	    url += "&keywords=YuGiOh%20" + name;
+	    url += "&keywords=YuGiOh%20" + encodeURI(name);
 	    url += "&paginationInput.entriesPerPage=5";
 	    url += "&itemFilter(0).name=GetItFastOnly&itemFilter(0).value=true";
-	    
+	    console.log(url);
 	    //alles was bei succes geschen soll muss in die funktion _cb_findItemsByKeywords
 	    $.ajax({
             url: url,
             dataType: "script"
         });
+	    console.log('ajaxCalled');
 	}
 });
 function _cb_findItemsByKeywords(root) {
@@ -140,7 +259,6 @@ function _cb_findItemsByKeywords(root) {
 		currency = '€';
 	}
 	$.each(items, function(key, item) {
-		console.log(item);
 		var li = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="a" data-icon="arrow-r" data-iconpos="right"><a href="'+item.viewItemURL+'">' + item.title + '<span>&nbsp;'+item.sellingStatus[0].currentPrice[0].__value__+'&nbsp;'+currency+'</span></a></li>';
 		offerList.append(li);
 	});
