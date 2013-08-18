@@ -5,7 +5,7 @@ class Cards
 
     public function _init()
     {
-        $this->db = mysqli_connect('127.0.0.1', 'root', '', 'ygo');
+        $this->db = mysqli_connect('127.0.0.1', 'root', '1337', 'ygo');
     }
 
     public function mainSearch ($string) {
@@ -15,7 +15,7 @@ class Cards
                                     "%' OR name_en LIKE '%" . $string .
                                     "%' OR name_en_alternate LIKE '%" . $string . "%'" .
                                      $codeString .
-                                    " LIMIT 100";
+                                    " GROUP BY code LIMIT 100";
         $result = $this->db->query($sql);
         return $this->createCardArray($result);
     }
@@ -24,7 +24,7 @@ class Cards
         $sql = 'SELECT * FROM cards
                 WHERE name_de LIKE "%' . $name .
                 '%" OR name_en LIKE "%' . $name .
-                '%" OR name_en_alternate LIKE "%' . $name . '%"';
+                '%" OR name_en_alternate LIKE "%' . $name . '%" GROUP BY code LIMIT 100';
         $result = $this->db->query($sql);
         return $this->createCardArray($result);
     }
@@ -82,6 +82,8 @@ class Cards
         // ----- remove multiple spaces -----
         $string = trim(preg_replace('/ {2,}/', ' ', $string));
 
+        $string = str_replace(array('ä', 'ü', 'ö'), array('ae', 'ue', 'oe'), $string);
+        
         return $string;
 
     }

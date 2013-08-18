@@ -57,13 +57,17 @@ function getPicLinks ($englishCardListUrl, $db) {
 }
 
 function getCards ($db) {
-    $query = 'SELECT id, url FROM cards_wikia';
+    $query = 'SELECT id, url FROM cards_wikia';//LIMIT 5647, 10000';
     $result = $db->query($query);
     echo 'Begin with getting the Pictures' . PHP_EOL;
+    $stopCount = 0;
     while ($link = $result->fetch_assoc()) {
+//     	$link['url'] = 'http://yugioh.wikia.com/wiki/CT08-EN004';
             echo $link['url'] . PHP_EOL;
+            echo $link['id'] . PHP_EOL;
             $dom = new DOMDocument('1.0', 'UTF-8');
             $curlResult = setCurl($link['url']);
+//             file_put_contents('wiki'.'.html', $curlResult);
             @$dom->loadHTML($curlResult);
 
             $xpathCard = new DOMXPath($dom);
@@ -77,6 +81,10 @@ function getCards ($db) {
                 }
             }
             saveCard($cardValues, $link['id'], $db);
+            $stopCount++;
+            if ($stopCount == 1) {
+            	exit('stopCount reached');
+            }
     }
     echo 'finish';
 }
@@ -113,13 +121,19 @@ function getCategoryValue($category, $tr) {
 				$values['category'] = $category;
 				$values['value'] = $tr->lastChild->nodeValue;
 				break;
+			case 'Type' :
+				$values['category'] = $category . 's';
+				$values['value'] = $tr->lastChild->nodeValue;
+				break;
 			case 'Rank' :
 				$values['category'] = $category;
-				$values['value'] = $tr->lastChild->nodeValue;
+				preg_match('/\d+/', $tr->lastChild->nodeValue, $matches);
+				$values['value'] = $matches[0];
 				break;
 			case 'Level' :
 				$values['category'] = $category;
-				$values['value'] = $tr->lastChild->nodeValue;
+				preg_match('/\d+/', $tr->lastChild->nodeValue, $matches);
+				$values['value'] = $matches[0];
 				break;
 			case 'ATK/DEF' :
 				$values['category'] = $category;
@@ -127,7 +141,8 @@ function getCategoryValue($category, $tr) {
 				break;
 			case 'Card Number' :
 				$values['category'] = $category;
-				$values['value'] = $tr->lastChild->nodeValue;
+				preg_match('/\d+/', $tr->lastChild->nodeValue, $matches);
+				$values['value'] = $matches[0];
 				break;
 			case 'Fusion Material' :
 				$values['category'] = $category;
@@ -137,13 +152,13 @@ function getCategoryValue($category, $tr) {
 				$values['category'] = $category;
 				$values['value'] = $tr->lastChild->nodeValue;
 				break;
-			case 'Card Number' :
-				$values['category'] = $category;
-				$values['value'] = $tr->lastChild->nodeValue;
-				break;
 			case 'Propertys' :
 				$values['category'] = $category;
-				$values['value'] = $tr->lastChild->nodeValue;
+				$values['value'] = str_replace(' ', '', $tr->lastChild->nodeValue);
+				break;
+			case 'Property' :
+				$values['category'] = $category . 's';
+				$values['value'] = str_replace(' ', '', $tr->lastChild->nodeValue);
 				break;
 		}
 	}
@@ -157,48 +172,51 @@ function saveCard ($values, $id, $db) {
 		$atk = $vals[0];
 		$def = $vals[1];
 	}
+	//Erst das Bild speichern und dann link für das Bild bauen
+// 	    file_put_contents('/pics_wikia/' . name_replace($values['English']) . '.jpg', file_get_contents($values['pic']));
 	// " " bei fusions material - entfernen oder wie?
+	//Problem mit " , ' im Namen und in der Beschreibung - wie lösen?
 	$query = 'UPDATE cards_wikia
 			 SET ' .
 			 (isset($values['pic'])? "pic_url='" . $values['pic'] . "'," : 'pic_url=null,').
-			 (isset($values['English'])? "name_en='" . $values['English'] . "'," : 'name_en=null,').
-			 (isset($values['German'])? "name_de='" . $values['German'] . "'," : 'name_de=null,').
-			 (isset($values['Alternate'])? "name_en_alternate='" . $values['Alternate'] . "'," : 'name_en_alternate=null,').
+			 (isset($values['English'])? "name_en='" . name_replace_db($values['English']) . "'," : 'name_en=null,').
+			 (isset($values['German'])? "name_de='" . name_replace_db($values['German']) . "'," : 'name_de=null,').
+			 (isset($values['Alternate'])? "name_en_alternate='" . name_replace_db($values['Alternate']) . "'," : 'name_en_alternate=null,').
 			 (isset($values['Attribute'])? 'attribute="' . $values['Attribute'] . '",' : 'attribute=null,').
 			 (isset($values['Types'])? 'type="' . $values['Types'] . '",' : 'type=null,').
-			 (isset($values['Rank'])? 'rank="' . $values['Rank'] . '",' : 'rank=null,').
+			 (isset($values['Rank'])? 'rank=' . $values['Rank'] . ',' : 'rank=null,').
 			 (isset($values['Level'])? 'level=' . $values['Level'] . ',' : 'level=null,').
-			 (isset($atk)? 'atk=' . $atk . ',' : 'atk=null,').
-			 (isset($def)? 'def=' . $def . ',' : 'def=null,').
+			 (isset($atk)? 'atk="' . $atk . '",' : 'atk=null,').
+			 (isset($def)? 'def="' . $def . '",' : 'def=null,').
 			 (isset($values['Card Number'])? 'code=' . $values['Card Number'] . ',' : 'code=null,').
-			 (isset($values['Fusion Material'])? 'fusion_material="' . $values['Fusion Material'] . '",' : 'fusion_material=null,').
-			 (isset($values['Materials'])? "material='" . $values['Materials'] . "'," : 'material=null,').
-			 (isset($values['Property'])? "propertys='" . $values['Property'] . "'," : 'propertys=null')
+			 (isset($values['desc'])? "effect='" . name_replace_db(html_entity_decode($values['desc'])) . "'," : 'effect=null,').
+			 (isset($values['Fusion Material'])? 'fusion_material="' .name_replace_db($values['Fusion Material']) . '",' : 'fusion_material=null,').
+			 (isset($values['Materials'])? "material='" . name_replace_db($values['Materials']) . "'," : 'material=null,').
+			 (isset($values['Propertys'])? "propertys='" . $values['Propertys'] . "'" : 'propertys=null')
 			 . ' WHERE id = ' . $id . '';
 	$result = $db->query($query);
 	if ($result) {
 	    echo '...saved...' . PHP_EOL;
-	    file_put_contents('pics_wikia/' . name_replace($values['English']) . '.jpg', file_get_contents($values['pic']));
 	} else {
-	    echo '...failed...' . PHP_EOL;
+	    echo '...save card failed...' . PHP_EOL;
+	    var_dump('fail');
+	    exit($query);
 	}
 }
 function setCurl ($url) {
-    $curlUserAgent = 'Mozilla/5.0 (X11; Linux x86_64; rv:8.0.1) Gecko/20100101 Firefox/8.0.1 FirePHP/0.7.0';
+    $curlUserAgent = 'Mozilla/5.0 (X11; U; Linux i686; en-US) 
+            AppleWebKit/532.4 (KHTML, like Gecko) 
+            Chrome/4.0.233.0 Safari/532.4';
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_USERAGENT, $curlUserAgent);
+//     curl_setopt($curl, CURLOPT_USERAGENT, $curlUserAgent);
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-
-//     curl_setopt($curl, CURLOPT_PROXYAUTH, CURLAUTH_NTLM);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($curl, CURLOPT_HEADER, 1);
 //http://www.proxy-listen.de/Proxy/Proxyliste.html
-    curl_setopt($curl, CURLOPT_PROXY, '124.119.50.254:80');
-//     curl_setopt($curl, CURLOPT_PROXYPORT, 80);
-//     curl_setopt($curl, CURLOPT_PROXYUSERPWD, 'DOMÃ„NE\benutzer:password');
+    curl_setopt($curl, CURLOPT_PROXY, '64.209.159.223:3128');
 
-    curl_setopt($curl, CURLOPT_TIMEOUT, 20);
-    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 20);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
 
     $curlResult = curl_exec($curl);
 //     file_put_contents('wiki'.'.html', $curlResult);
@@ -218,6 +236,11 @@ function getCategoryLinks($dom) {
 }
 function name_replace ($name) {
     //ï¿½ ï¿½ ï¿½ mï¿½ssen nicht entfernt werden
-    $name = str_replace(array('"', ' ', '!', '?', '/', 'Ã¶', 'Ã¤', 'Ã¼'), array('', '_', '', '', '_', 'oe', 'ae', 'ue'), $name);
+    $name = str_replace(array('"', ' ', '!', '?', '/', 'ö', 'ä', 'ü', ':', '.'), array('', '_', '', '', '_', 'oe', 'ae', 'ue', '', ''), $name);
     return $name;
+}
+function name_replace_db ($name) {
+	//ï¿½ ï¿½ ï¿½ mï¿½ssen nicht entfernt werden
+	$name = str_replace(array('"', "'", 'ö', 'ä', 'ü'), array('', '', 'oe', 'ae', 'ue'), $name);
+	return $name;
 }

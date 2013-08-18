@@ -5,7 +5,7 @@ var viewport = {
 //var SingleCardData = null;
 var userLang = navigator.language || navigator.userLanguage; 
 $(document).bind('pagecreate', function(){
-	function setSingleCard (data, isMulti = false) {
+	function setSingleCard (data, isMulti) {
 		if (isMulti) {
 			$('#SingleCard .backLink').attr('data-ajax', 'true');
 			$('#SingleCard .backLink').attr('href', '#MultiCards');
@@ -77,7 +77,12 @@ $(document).bind('pagecreate', function(){
 			
 			var cardLevel = $('#SingleCard .cardLevel');
 			if (item.level){
-				cardLevel.text(item.level);
+				var levelImg = '<img src="/img/level.svg" width="20" height="20" border="0" alt="Level">';
+				var levelHtml = item.level + '&nbsp;';
+				for (var i = 1; i <= item.level; i++) {
+					levelHtml += levelImg;
+				}
+				cardLevel.html(levelHtml);
 				cardLevel.parents('.cardItem').show();
 			} else {
 				cardLevel.parents('.cardItem').hide();
@@ -85,7 +90,12 @@ $(document).bind('pagecreate', function(){
 			
 			var cardRank = $('#SingleCard .cardRank');
 			if (item.rank){
-				cardRank.text(item.rank);
+				var rankImg = '<img src="/img/rank.svg" width="20" height="20" border="0" alt="Rank">';
+				var rankHtml = item.rank + '&nbsp;';
+				for (var i = 1; i <= item.rank; i++) {
+					rankHtml += rankImg;
+				}
+				cardRank.html(rankHtml);
 				cardRank.parents('.cardItem').show();
 			} else {
 				cardRank.parents('.cardItem').hide();
@@ -101,7 +111,9 @@ $(document).bind('pagecreate', function(){
 			
 			var cardAttribute = $('#SingleCard .cardAttribute');
 			if (item.attribute){
-				cardAttribute.text(item.attribute);
+				var attributeImg = '<img src="/img/' + item.attribute.replace(/ /, '') + '.png" width="30" height="30" border="0" alt="Attribute">';
+				var attributeHtml = item.attribute + '&nbsp;' + attributeImg;
+				cardAttribute.html(attributeHtml);
 				cardAttribute.parents('.cardItem').show();
 			} else {
 				cardAttribute.parents('.cardItem').hide();
@@ -109,7 +121,12 @@ $(document).bind('pagecreate', function(){
 			
 			var cardProperties = $('#SingleCard .cardProperties');
 			if (item.propertys){
-				cardProperties.text(item.propertys);
+				var propertysImg = '<span></span>';
+				if (item.propertys.search(/Normal/) == -1) {
+					propertysImg = '<img src="/img/' + item.propertys.replace(/ /, '') + '.png" width="30" height="30" border="0" alt="Property">';
+				}
+				var propertysHtml = item.propertys + '&nbsp;' + propertysImg;
+				cardProperties.html(propertysHtml);
 				cardProperties.parents('.cardItem').show();
 			} else {
 				cardProperties.parents('.cardItem').hide();
@@ -117,7 +134,19 @@ $(document).bind('pagecreate', function(){
 			
 			var cardType = $('#SingleCard .cardType');
 			if (item.type){
-				cardType.text(item.type);
+				var cardTypeHtml = item.type;
+				var cardTypes = null;
+				if (item.type.search(/Spell Card/) != -1) {
+					cardTypes = 'SPELL';
+				} else if (item.type.search(/Trap Card/) != -1) {
+					cardTypes = 'TRAP';
+				}
+				var img = '<span></span>';
+				if (cardTypes !== null) {
+					img = '<img src="/img/' + cardTypes.replace(/ /, '') + '.png" width="30" height="30" border="0" alt="Attribute">';
+					cardTypeHtml += img;
+				}
+				cardType.html(cardTypeHtml);
 				cardType.parents('.cardItem').show();
 			} else {
 				cardType.parents('.cardItem').hide();
@@ -146,8 +175,11 @@ $(document).bind('pagecreate', function(){
 		var list = $('#MultiCardList');
 		list.empty();
 		$.each(data, function (key, item) {
-			//data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="div" data-icon="arrow-r" data-iconpos="right"
-			var li = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="a" data-icon="arrow-r" data-iconpos="right"><a href="#SingleCard" class="multiCard" data-cardId="'+item.id+'">' + item.name_de + '</a></li>';
+			var li = '<li data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="a" data-icon="arrow-r" data-iconpos="right">';
+			var a =	'<a href="#SingleCard" class="multiCard" data-cardId="'+item.id+'">' + item.name_de;
+			
+			li += a;
+			li += '</a></li>';
 			list.append(li);
 		});
 		list.listview('refresh');
