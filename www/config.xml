@@ -4,7 +4,10 @@
 
     <name>YuGiOh mDB</name>
 
-    <description>Eine App zum Verwalten des Prepaid Guthaben auf der Prepaid Kreditkarte</description>
+    <description>This is mobile Card DB for YuGiOh. You can type in the German or the English Name for a Card to find it. 
+    Otherwise you can type the card code and find the Card also.
+    
+    This App is in BETA!</description>
 
     <author email="tom.scheduikat@gmx.de">Tom Scheduikat</author>
 
