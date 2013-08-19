@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.prepaid.guthaben" version="1.0" versionCode="11111">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.yugioh.mdb" version="1.0" versionCode="11111">
 
-    <name>Prepaid Guthaben</name>
+    <name>YuGiOh mDB</name>
 
     <description>Eine App zum Verwalten des Prepaid Guthaben auf der Prepaid Kreditkarte</description>
 
-    <author email="support@phonegap.com" href="http://phonegap.com">PhoneGap Team</author>
+    <author email="tom.scheduikat@gmx.de">Tom Scheduikat</author>
 
     <!--
         Enable individual API permissions here.
         The "device" permission is required for the 'deviceready' event.
     -->
     <feature name="http://api.phonegap.com/1.0/device"/>
-    <feature name="http://api.zend.com/1.0/storage"/>
-
     <!--
         If you do not want any permissions to be added to your app, add the
         following tag to your config.xml; you will still have the INTERNET
@@ -45,7 +43,7 @@
         A list of available plugins are available at https://build.phonegap.com/docs/plugins
     -->
 
-    <!-- Define app icon for each platform. -->
+    <!-- Define app icon for each platform.
     <icon src="icon.png"/>
     <icon gap:density="ldpi" gap:platform="android" src="res/icon/android/icon-36-ldpi.png"/>
     <icon gap:density="mdpi" gap:platform="android" src="res/icon/android/icon-48-mdpi.png"/>
@@ -60,8 +58,21 @@
     <icon gap:platform="webos" src="res/icon/webos/icon-64.png"/>
     <icon gap:platform="winphone" src="res/icon/windows-phone/icon-48.png"/>
     <icon gap:platform="winphone" gap:role="background" src="res/icon/windows-phone/icon-173.png"/>
-
-    <!-- Define app splash screen for each platform. -->
+    -->
+    <icon gap:density="ldpi" gap:platform="android" src="res/icon/logo.png"/>
+    <icon gap:density="mdpi" gap:platform="android" src="res/icon/logo.png"/>
+    <icon gap:density="hdpi" gap:platform="android" src="res/icon/logo.png"/>
+    <icon gap:density="xhdpi" gap:platform="android" src="res/icon/logo.png"/>
+    <icon gap:platform="blackberry" src="res/icon/logo.png"/>
+    <icon gap:platform="blackberry" gap:state="hover" src="res/icon/logo.png"/>
+    <icon gap:platform="ios" height="57" src="res/icon/logo.png" width="57"/>
+    <icon gap:platform="ios" height="72" src="res/icon/logo.png" width="72"/>
+    <icon gap:platform="ios" height="114" src="res/icon/logo.png" width="114"/>
+    <icon gap:platform="ios" height="144" src="res/icon/logo.png" width="144"/>
+    <icon gap:platform="webos" src="res/icon/logo.png"/>
+    <icon gap:platform="winphone" src="res/icon/logo.png"/>
+    <icon gap:platform="winphone" gap:role="background" src="res/icon/logo.png"/>
+    <!-- Define app splash screen for each platform. 
     <gap:splash gap:density="ldpi" gap:platform="android" src="res/screen/android/screen-ldpi-portrait.png"/>
     <gap:splash gap:density="mdpi" gap:platform="android" src="res/screen/android/screen-mdpi-portrait.png"/>
     <gap:splash gap:density="hdpi" gap:platform="android" src="res/screen/android/screen-hdpi-portrait.png"/>
@@ -72,7 +83,17 @@
     <gap:splash gap:platform="ios" height="1024" src="res/screen/ios/screen-ipad-portrait.png" width="768"/>
     <gap:splash gap:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024"/>
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg"/>
-
+    -->
+    <gap:splash gap:density="ldpi" gap:platform="android" src="res/screen/Logo-portrait.png"/>
+    <gap:splash gap:density="mdpi" gap:platform="android" src="res/screen/Logo-portrait.png"/>
+    <gap:splash gap:density="hdpi" gap:platform="android" src="res/screen/Logo-portrait.png"/>
+    <gap:splash gap:density="xhdpi" gap:platform="android" src="res/screen/Logo-portrait.png"/>
+    <gap:splash gap:platform="blackberry" src="res/screen/Logo-portrait.png"/>
+    <gap:splash gap:platform="ios" height="480" src="res/screen/Logo-portrait.png" width="320"/>
+    <gap:splash gap:platform="ios" height="960" src="res/screen/Logo-portrait.png" width="640"/>
+    <gap:splash gap:platform="ios" height="1024" src="res/screen/Logo-portrait.png" width="768"/>
+    <gap:splash gap:platform="ios" height="768" src="res/screen/Logo-portrait.png" width="1024"/>
+    <gap:splash gap:platform="winphone" src="res/screen/Logo-portrait.png"/>
     <!--
         Define access to external domains.
 
@@ -82,6 +103,7 @@
         Otherwise, you can specify specific domains:
     -->
     <access origin="http://127.0.0.1*"/> <!-- allow local pages -->
+    <access origin="http://tanktiger.square7.ch/*"/> <!-- allow server -->
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/

@@ -7,6 +7,7 @@ class Cards
     {
         $this->db = mysqli_connect('localhost', 'tanktiger_ygo', 'AmEsadS1337', 'tanktiger_ygo');
 //         $this->db = mysqli_connect('127.0.0.1', 'root', '', 'ygo');
+        $this->db->set_charset('utf8');
     }
 
     public function mainSearch ($string) {
@@ -83,7 +84,7 @@ class Cards
         // ----- remove multiple spaces -----
         $string = trim(preg_replace('/ {2,}/', ' ', $string));
 
-        $string = str_replace(array('Ã¤', 'Ã¼', 'Ã¶'), array('ae', 'ue', 'oe'), $string);
+        $string = str_replace(array('ä', 'ü', 'ö'), array('ae', 'ue', 'oe'), $string);
 
         return $string;
 

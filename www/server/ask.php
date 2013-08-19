@@ -1,12 +1,13 @@
 <?php
 include 'cards.php';
 // header('Content-type: application/json');
+header("Access-Control-Allow-Origin: *");
 $card = new Cards();
 $data = null;
-
 $card->_init();
-$limitOld = 0;
-$limitNew = 100;
+
+$limitOld = (isset($_GET['limitOld'])) ? $_GET['limitOld'] : 0;
+$limitNew = (isset($_GET['limitNew'])) ? $_GET['limitNew'] : 500;
 switch ($_GET['ask']) {
     case 'singleName' :
         $data = $card->getSingleCardByName($_GET['cardSearch']);
@@ -17,19 +18,21 @@ switch ($_GET['ask']) {
     case 'singleId' :
         $data = $card->getSingleCardById($_GET['id']);
         break;
-    case 'all' :
-        $data = $card->getAllCards($limitOld, $limitNew);
     case 'main' :
         $data = $card->mainSearch($_GET['cardSearch']);
         break;
-    case 'monster' :
-        $data = $card->getMonsterCards($limitOld, $limitNew);
-        break;
-    case 'spell' :
-        $data = $card->getCardsByType('Spell Card', $limitOld, $limitNew);
-        break;
-    case 'trap' :
-        $data = $card->getCardsByType('Trap Card', $limitOld, $limitNew);
-        break;
+        //kommen später hinzu
+//     case 'all' :
+//         $data = $card->getAllCards($limitOld, $limitNew);
+//         break;
+//     case 'monster' :
+//         $data = $card->getMonsterCards($limitOld, $limitNew);
+//         break;
+//     case 'spell' :
+//         $data = $card->getCardsByType('Spell Card', $limitOld, $limitNew);
+//         break;
+//     case 'trap' :
+//         $data = $card->getCardsByType('Trap Card', $limitOld, $limitNew);
+//         break;
 }
-echo $_GET['jsoncallback'] . '(' . json_encode($data) . ');';
+echo $_GET['callback'] . '(' . json_encode($data) . ');';

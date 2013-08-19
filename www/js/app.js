@@ -1,12 +1,17 @@
-$.support.cors = true;
-$.mobile.allowCrossDomainPages = true;
+
 var viewport = {
     width  : $(window).width(),
     height : $(window).height()
 };
 //var SingleCardData = null;
 var userLang = navigator.language || navigator.userLanguage; 
+$( document ).on( "mobileinit", function() {
+    // Make your jQuery Mobile framework configuration changes here!
+	$.support.cors = true;
+    $.mobile.allowCrossDomainPages = true;
+});
 $(document).bind('pagecreate', function(){
+	
 	function setSingleCard (data, isMulti) {
 		if (isMulti) {
 			$('#SingleCard .backLink').attr('data-ajax', 'true');
@@ -195,11 +200,11 @@ $(document).bind('pagecreate', function(){
 	    if (e.preventDefault) e.preventDefault();
 	    //run an AJAX post request to your server-side script, $this.serialize() is the data from your form being added to the request
 	    $.ajax({
+	    	type: 'GET',
 	    	url: 'http://tanktiger.square7.ch/server/ask.php?ask=main',//$this.attr('action') + '?ask=main',
 	    	data: $this.serialize(),
-//	    	cache: false,
+	    	cache: false,
 	    	dataType: 'jsonp',
-	    	jsonp: 'jsoncallback',
 	    	crossDomain: true,
 			success: function (data, status) {
 				console.log(data);
@@ -234,7 +239,7 @@ $(document).bind('pagecreate', function(){
 		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
 	    var $this = $(this);
 	    $.ajax({
-	    	url: '/server/ask.php/?ask=all',
+	    	url: 'http://tanktiger.square7.ch/server/ask.php?ask=all',
 	    	dataType: 'jsonp',
 	    	cache: false,
 	    	jsonp: 'jsoncallback',
@@ -248,10 +253,9 @@ $(document).bind('pagecreate', function(){
 		$.mobile.loading( 'show', {theme: "b", text: "...", textVisible: true});
 	    var $this = $(this);
 	    $.ajax({
-	    	url: '/server/ask.php/?ask=singleId&id='+ $this.attr('data-cardId'),
+	    	url: 'http://tanktiger.square7.ch/server/ask.php?ask=singleId&id='+ $this.attr('data-cardId'),
 	    	dataType: 'jsonp',
 	    	cache: false,
-	    	jsonp: 'jsoncallback',
 			success: function (data, status) {
 				setSingleCard(data, true);
 			}
