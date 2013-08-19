@@ -172,27 +172,27 @@ function saveCard ($values, $id, $db) {
 		$atk = $vals[0];
 		$def = $vals[1];
 	}
-	//Erst das Bild speichern und dann link für das Bild bauen
+	//Erst das Bild speichern und dann link fï¿½r das Bild bauen
 // 	    file_put_contents('/pics_wikia/' . name_replace($values['English']) . '.jpg', file_get_contents($values['pic']));
 	// " " bei fusions material - entfernen oder wie?
-	//Problem mit " , ' im Namen und in der Beschreibung - wie lösen?
+	//Problem mit " , ' im Namen und in der Beschreibung - wie lï¿½sen?
 	$query = 'UPDATE cards_wikia
 			 SET ' .
 			 (isset($values['pic'])? "pic_url='" . $values['pic'] . "'," : 'pic_url=null,').
 			 (isset($values['English'])? "name_en='" . name_replace_db($values['English']) . "'," : 'name_en=null,').
 			 (isset($values['German'])? "name_de='" . name_replace_db($values['German']) . "'," : 'name_de=null,').
 			 (isset($values['Alternate'])? "name_en_alternate='" . name_replace_db($values['Alternate']) . "'," : 'name_en_alternate=null,').
-			 (isset($values['Attribute'])? 'attribute="' . $values['Attribute'] . '",' : 'attribute=null,').
-			 (isset($values['Types'])? 'type="' . $values['Types'] . '",' : 'type=null,').
+			 (isset($values['Attribute'])? 'attribute="' . name_replace_db($values['Attribute']) . '",' : 'attribute=null,').
+			 (isset($values['Types'])? 'type="' . name_replace_db($values['Types']) . '",' : 'type=null,').
 			 (isset($values['Rank'])? 'rank=' . $values['Rank'] . ',' : 'rank=null,').
 			 (isset($values['Level'])? 'level=' . $values['Level'] . ',' : 'level=null,').
 			 (isset($atk)? 'atk="' . $atk . '",' : 'atk=null,').
 			 (isset($def)? 'def="' . $def . '",' : 'def=null,').
-			 (isset($values['Card Number'])? 'code=' . $values['Card Number'] . ',' : 'code=null,').
-			 (isset($values['desc'])? "effect='" . name_replace_db(html_entity_decode($values['desc'])) . "'," : 'effect=null,').
+			 (isset($values['Card Number'])? 'code=' . name_replace_db($values['Card Number']) . ',' : 'code=null,').
+			 (isset($values['desc'])? "effect='" . name_replace_db_effect(html_entity_decode($values['desc'])) . "'," : 'effect=null,').
 			 (isset($values['Fusion Material'])? 'fusion_material="' .name_replace_db($values['Fusion Material']) . '",' : 'fusion_material=null,').
 			 (isset($values['Materials'])? "material='" . name_replace_db($values['Materials']) . "'," : 'material=null,').
-			 (isset($values['Propertys'])? "propertys='" . $values['Propertys'] . "'" : 'propertys=null')
+			 (isset($values['Propertys'])? "propertys='" . name_replace_db($values['Propertys']) . "'" : 'propertys=null')
 			 . ' WHERE id = ' . $id . '';
 	$result = $db->query($query);
 	if ($result) {
@@ -204,8 +204,8 @@ function saveCard ($values, $id, $db) {
 	}
 }
 function setCurl ($url) {
-    $curlUserAgent = 'Mozilla/5.0 (X11; U; Linux i686; en-US) 
-            AppleWebKit/532.4 (KHTML, like Gecko) 
+    $curlUserAgent = 'Mozilla/5.0 (X11; U; Linux i686; en-US)
+            AppleWebKit/532.4 (KHTML, like Gecko)
             Chrome/4.0.233.0 Safari/532.4';
     $curl = curl_init();
 //     curl_setopt($curl, CURLOPT_USERAGENT, $curlUserAgent);
@@ -235,12 +235,14 @@ function getCategoryLinks($dom) {
     return $linkArray;
 }
 function name_replace ($name) {
-    //ï¿½ ï¿½ ï¿½ mï¿½ssen nicht entfernt werden
-    $name = str_replace(array('"', ' ', '!', '?', '/', 'ö', 'ä', 'ü', ':', '.'), array('', '_', '', '', '_', 'oe', 'ae', 'ue', '', ''), $name);
+    $name = str_replace(array('"', ' ', '!', '?', '/', 'Ã¶', 'Ã¤', 'Ã¼', ':', '.'), array('', '_', '', '', '_', 'oe', 'ae', 'ue', '', ''), $name);
     return $name;
 }
 function name_replace_db ($name) {
-	//ï¿½ ï¿½ ï¿½ mï¿½ssen nicht entfernt werden
-	$name = str_replace(array('"', "'", 'ö', 'ä', 'ü'), array('', '', 'oe', 'ae', 'ue'), $name);
+	$name = str_replace(array('"', "'", 'Ã¶', 'Ã¤', 'Ã¼', "\r\n", "\r", "\n"), array('', '', 'oe', 'ae', 'ue', '', '', ''), $name);
+	return $name;
+}
+function name_replace_db_effect ($name) {
+	$name = str_replace(array('"', "'", 'Ã¶', 'Ã¤', 'Ã¼'), array('', '', 'oe', 'ae', 'ue'), $name);
 	return $name;
 }

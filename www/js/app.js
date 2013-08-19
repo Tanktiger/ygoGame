@@ -1,3 +1,5 @@
+$.support.cors = true;
+$.mobile.allowCrossDomainPages = true;
 var viewport = {
     width  : $(window).width(),
     height : $(window).height()
@@ -193,12 +195,14 @@ $(document).bind('pagecreate', function(){
 	    if (e.preventDefault) e.preventDefault();
 	    //run an AJAX post request to your server-side script, $this.serialize() is the data from your form being added to the request
 	    $.ajax({
-	    	url: $this.attr('action') + '?ask=main',
+	    	url: 'http://tanktiger.square7.ch/server/ask.php?ask=main',//$this.attr('action') + '?ask=main',
 	    	data: $this.serialize(),
-	    	cache: false,
+//	    	cache: false,
 	    	dataType: 'jsonp',
 	    	jsonp: 'jsoncallback',
+	    	crossDomain: true,
 			success: function (data, status) {
+				console.log(data);
 				//go to div SingleCard oder MultiCard - je nachdem wie viele im Ergebnis kommen
 				//hänge alle übergebenen Werte in das Skelett
 				if (Object.keys(data).length == 1) {

@@ -1,6 +1,6 @@
 <?php
 include 'cards.php';
-header('Content-type: application/json');
+// header('Content-type: application/json');
 $card = new Cards();
 $data = null;
 
@@ -26,11 +26,10 @@ switch ($_GET['ask']) {
         $data = $card->getMonsterCards($limitOld, $limitNew);
         break;
     case 'spell' :
-        $data = $card->getCardsByType('spell', $limitOld, $limitNew);
+        $data = $card->getCardsByType('Spell Card', $limitOld, $limitNew);
         break;
     case 'trap' :
-        $data = $card->getCardsByType('trap', $limitOld, $limitNew);
+        $data = $card->getCardsByType('Trap Card', $limitOld, $limitNew);
         break;
 }
-
 echo $_GET['jsoncallback'] . '(' . json_encode($data) . ');';
