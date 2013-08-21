@@ -176,6 +176,7 @@ $(document).bind('pagecreate', function(){
 			}
 			
 		});
+		$('#SingleCard').listview('refresh');
 	}
 	
 	function setMultiCard (data) {
