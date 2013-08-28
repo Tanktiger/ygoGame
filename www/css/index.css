@@ -25,3 +25,4 @@ input.ui-input-text {font-size: 40px;}
     font-weight: bold;
     white-space: pre-wrap;
 }
+#noResult {display:none;}
