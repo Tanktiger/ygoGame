@@ -34,18 +34,18 @@ $(document).bind('pagecreate', function(){
 				if (Object.keys(data).length == 1) {
 					setSingleCard(data, false);
 					$.mobile.changePage(list,{
-//						  allowSamePageTransition : true,
-//						  transition : 'none',
-//						  showLoadMsg : true,
-//						  reloadPage : true
+						  allowSamePageTransition : true,
+						  transition : 'none',
+						  showLoadMsg : true,
+						  reloadPage : true
 						 });
 					list.listview('refresh');
 				} else if(Object.keys(data).length > 1) {
 					$.mobile.changePage( $('#MultiCards') ,{
-//						  allowSamePageTransition : true,
-//						  transition : 'none',
-//						  showLoadMsg : true,
-//						  reloadPage : true
+						  allowSamePageTransition : true,
+						  transition : 'none',
+						  showLoadMsg : true,
+						  reloadPage : true
 						 });
 					setMultiCard(data);
 				} else {
@@ -196,6 +196,7 @@ function setSingleCard (data, isMulti) {
 			cardPicture.css('max-height', viewport.height);
 			cardPicture.show();
 			cardPicture.lazyload();
+			cardPicture.attr('src', cardPicture.attr('src')+'?'+Math.random());
 		} else {
 			cardPicture.hide();
 		}
@@ -324,5 +325,6 @@ function lazyLoadPictures(dom) {
 	var imgs = dom.find('img');
 	$.each(imgs, function(key, item) {
 		$(item).lazyload();
+		$(item).attr('src', $(item).attr('src')+'?'+Math.random());
 	});
 }
